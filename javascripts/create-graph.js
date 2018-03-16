@@ -5,136 +5,14 @@ function parseData(createGraphOne) {
 	Papa.parse("../data/sfpd_dispatch_data_subset.csv", {
 		download: true,
 		complete: function(results) {
-			console.log(results.data);
 			createGraphOne(results.data);
 			createGraphTwo(results.data);
+			createGraphThree(results.data);
 		}
 	});
 }
 
 function createGraphOne(data) {
-	var zipcode_finalPri = ["zipcode_finalPri"];
-
-	// 2d array. first number is the zipcode, next number is the final_priority
-	// for ex, [94121, 2], [94103, 2], ...
-	for (var i = 1; i < data.length; i++) {
-		var inner_arr = [];
-		inner_arr.push(data[i][17]);
-		inner_arr.push(data[i][23]);
-		zipcode_finalPri.push(inner_arr);
-	}
-
-	// sort zipcode_finalPri by zipcode
-	zipcode_finalPri.sort(sortFunction);
-
-	// splice the undefined array at pos 0 and pos 1
-	zipcode_finalPri.splice(0, 2);
-
-	console.log(zipcode_finalPri);
-
-	// create 2d array. first number is the zipcode, next number is the count of 2 and 3 priorities
-	// for ex, [94121, 20, 25] means there were 20 2 priorities and 25 3 priorities in 94121
-	var count2 = 0;
-	var count3 = 0;
-	var zipcode_num2_num3 = [ ["94102", 0, 0] ];
-
-	// fill zipcode_num2_num3 with empty inner arrs
-	for (var i = 0; i < 27; i++) {
-		zipcode_num2_num3.push([0, 0, 0]);
-	}
-
-	var j = 0;
-	for (var i = 0; i < zipcode_finalPri.length; i++) {
-		/* for every year in zipcode_finalPri, check if that exists in zipcode_num2_num3
-		*  if it does, add one to count2 if the final_priority is 2
-		*  add one to count3 if the final_priority is 3
-		*  if the zipcode doesnt exist, add new year to zipcode_num2_num3
-		*  and increment count2 or count3 corresspondingly
-		*/
-		if (zipcode_finalPri[i][0] == zipcode_num2_num3[j][0]) {
-			if (zipcode_finalPri[i][1] == 2) {
-				count2++;
-			}
-			else if (zipcode_finalPri[i][1] == 3) {
-				count3++;
-			}
-		}
-		else {
-			// moving on to a new zipcode,
-			// so add count2 and count3 to the previous zipcode and reset the counts
-			j++;
-			zipcode_num2_num3[j-1][1] = count2;
-			zipcode_num2_num3[j-1][2] = count3;
-			count2 = 0;
-			count3 = 0;
-
-			// set new zipcode
-			zipcode_num2_num3[j][0] = zipcode_finalPri[i][0];
-
-			// increment count2 or count3
-			if (zipcode_finalPri[i][1] == 2) {
-				count2++;
-			}
-			else if (zipcode_finalPri[i][1] == 3) {
-				count3++;
-			}
-		}
-	}
-
-	// now that zipcode_num2_num3 is an arr[] in the format
-	// [ [zipcode, count of 2, count of 3],  [zipcode, count of 2, count of 3], ...]
-	// we will create the graph here
-
-	// create an array with just the zipcodes to pass it as the column
-	var zipcodes = ['x'];
-	for (var i = 0; i < zipcode_num2_num3.length - 1; i++) {
-		zipcodes.push(zipcode_num2_num3[i][0]);
-	}
-
-	// create an array with just the counts of 2, in order of the zipcodes
-	var count2s = ['Non-Emergency Count (2)'];
-	for (var i = 0; i < zipcode_num2_num3.length - 1; i++) {
-		count2s.push(zipcode_num2_num3[i][1]);
-	}
-
-	var count3s = ['Emergency Count (3)'];
-	for (var i = 0; i < zipcode_num2_num3.length - 1; i++) {
-		count3s.push(zipcode_num2_num3[i][2]);
-	}
-
-	var chart = c3.generate({
-		bindto: '#chart',
-    	data: {
-	        x : 'x',
-	        columns: [
-	            zipcodes,
-	            count2s,
-	            count3s,
-	        ],
-	        groups: [
-	            ['Non-Emergency Count (2)', 'Emergency Count (3)']
-	        ],
-	        type: 'bar'
-	    },
-	    axis: {
-	        x: {
-	            type: 'category', // this needed to load string x value
-	            label: {
-	            	text: 'Zipcode',
-	            	position: 'outer-center'
-	            }
-	        },
-	        y: {
-            	label: {
-            		text: 'Count',
-            		position: 'outer-middle'
-            	}
-        	},
-	    },
-	});
-}
-
-function createGraphTwo(data) {
 	// create a bar graph that shows the number of Alarms, non life threatening,
 	// potentially life threatening, and fire calls for every zipcode in SF
 
@@ -150,8 +28,6 @@ function createGraphTwo(data) {
 	zipcode_callType.sort(sortFunction);
 
 	zipcode_callType.splice(0, 2);
-
-	console.log(zipcode_callType);
 
 	countF = 0;
 	countA = 0;
@@ -199,7 +75,6 @@ function createGraphTwo(data) {
 			countNLT = 0;
 
 			// set new zipcode
-			console.log(i);
 			zipcode_numF_numA_numPLT_numNLT[j][0] = zipcode_callType[i][0];
 
 			// increment count2 or count3
@@ -217,8 +92,216 @@ function createGraphTwo(data) {
 			}
 		}
 	}
-	console.log(zipcode_callType);
-	console.log(zipcode_numF_numA_numPLT_numNLT);
+
+	var zipcodes = ['x'];
+	for (var i = 0; i < zipcode_numF_numA_numPLT_numNLT.length - 2; i++) {
+		zipcodes.push(zipcode_numF_numA_numPLT_numNLT[i][0]);
+	}
+
+	// create an array with just the counts of Fire, in order of zipcodes
+	var countFs = ['Fire'];
+	for (var i = 0; i < zipcode_numF_numA_numPLT_numNLT.length - 2; i++) {
+		countFs.push(zipcode_numF_numA_numPLT_numNLT[i][1]);
+	}
+
+	var countAs = ['Alarm'];
+	for (var i = 0; i < zipcode_numF_numA_numPLT_numNLT.length - 2; i++) {
+		countAs.push(zipcode_numF_numA_numPLT_numNLT[i][2]);
+	}
+
+	var countPLTs = ['Potentially Life-Threatening'];
+	for (var i = 0; i < zipcode_numF_numA_numPLT_numNLT.length - 2; i++) {
+		countPLTs.push(zipcode_numF_numA_numPLT_numNLT[i][3]);
+	}
+
+	var countNLTs = ['Non Life-threatening'];
+	for (var i = 0; i < zipcode_numF_numA_numPLT_numNLT.length - 2; i++) {
+		countNLTs.push(zipcode_numF_numA_numPLT_numNLT[i][4]);
+	}
+
+	var chart = c3.generate({
+		bindto: '#chart',
+    	data: {
+	        x : 'x',
+	        columns: [
+	            zipcodes,
+	            countFs,
+	            countAs,
+	            countPLTs,
+	            countNLTs
+	        ],
+	        groups: [
+	            ['Fire', 'Alarm', 'Potentially Life-Threatening', 'Non Life-threatening']
+	        ],
+	        type: 'bar'
+	    },
+	    legend: {
+	    	show: true
+	    },
+	    axis: {
+	        x: {
+	            type: 'category', // this needed to load string x value
+	            label: {
+	            	text: 'Zipcode',
+	            	position: 'outer-center'
+	            }
+	        },
+	        y: {
+            	label: {
+            		text: 'Call Count',
+            		position: 'outer-middle'
+            	}
+        	},
+	    },
+	});
+}
+
+function createGraphTwo(data) {
+	var recievedHour = []; // array of the hour the call was recieved
+
+	for (var i = 1; i < data.length - 1; i++) {
+		recievedHour.push(data[i][6].slice(11, 13));
+	}
+
+	var countOfHourCalls = ['Num of Recieved Calls Per Hour'];
+	// array of how many times a call was recieved at that hour
+
+
+	for (var i = 0; i < 24; i++) {
+		countOfHourCalls.push(0);
+	}
+
+	for (var i = 1; i < recievedHour.length; i++) {
+		countOfHourCalls[parseInt(recievedHour[i])+1]++;
+	}
+
+	var chart = c3.generate({
+		bindto: '#chart2',
+	    data: {
+	        columns: [
+	            countOfHourCalls
+	        ]
+	    },
+	    axis: {
+	        x: {
+	            type: 'category',
+	            categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
+	            			 '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21',
+	            			 '22', '23'],
+	            label: {
+	            	text: 'Hour',
+	            	position: 'outer-center'
+	            }
+	        },
+	        y: {
+	        	label: {
+	        		text: 'Count',
+	        		position: 'outer-middle'
+	        	}
+	        }
+	    }
+	});
+}
+
+function createGraphThree(data) {
+	var zipcode_entryHrMin_onsceneHrMin = [];
+
+	for (var i = 1; i < data.length - 1; i++) {
+		var inner_arr = [];
+		inner_arr.push(data[i][17]);
+		inner_arr.push(data[i][7].substring(11, 13));
+		inner_arr.push(data[i][7].substring(14, 16));
+		inner_arr.push(data[i][10].substring(11, 13));
+		inner_arr.push(data[i][10].substring(14, 16));
+		zipcode_entryHrMin_onsceneHrMin.push(inner_arr);
+	}
+
+	var wasSpliced = false;
+	for (var i = 0; i < zipcode_entryHrMin_onsceneHrMin.length; i++) {
+		if (wasSpliced) {
+			i = 0;
+			wasSpliced = false;
+		}
+		if (!zipcode_entryHrMin_onsceneHrMin[i][3]) {
+			zipcode_entryHrMin_onsceneHrMin.splice(i, 1);
+			wasSpliced = true;
+		}
+	}
+
+	var zipcode_diffMins = [];
+	var entryHr = 0;
+	var entryMin = 0;
+	var onsceneHr = 0;
+	var onsceneMin = 0;
+	for (var i = 0; i < zipcode_entryHrMin_onsceneHrMin.length; i++) {
+		entryHr = parseInt(zipcode_entryHrMin_onsceneHrMin[i][1]) * 60;
+		entryMin = parseInt(zipcode_entryHrMin_onsceneHrMin[i][2]);
+		onsceneHr = parseInt(zipcode_entryHrMin_onsceneHrMin[i][3]) * 60;
+		onsceneMin = parseInt(zipcode_entryHrMin_onsceneHrMin[i][4]);
+		var inner_arr = [];
+		inner_arr.push(zipcode_entryHrMin_onsceneHrMin[i][0]);
+		inner_arr.push(onsceneHr + onsceneMin - entryHr - entryMin);
+		zipcode_diffMins.push(inner_arr);
+	}
+
+	zipcode_diffMins.sort(sortFunction);
+
+	for (var i = 0; i < zipcode_diffMins.length; i++) {
+		if (zipcode_diffMins[i][1] < 0) {
+			zipcode_diffMins.splice(i, 1);
+			i = -1;
+		}
+	}
+
+	var zipcode_avgDiff = [];
+	for (var i = 0; i < 27; i++) {
+		zipcode_avgDiff.push(['94102',0]);
+	}
+
+	var sum = 0;
+	var count = 0;
+	var j = 0;
+	for (var i = 0; i < zipcode_diffMins.length; i++) {
+		if (zipcode_avgDiff[j][0] == zipcode_diffMins[i][0]) {
+			sum += zipcode_diffMins[i][1];
+			count++;
+		}
+		else {
+			j++;
+			zipcode_avgDiff[j-1][1] = sum / count;
+			zipcode_avgDiff[j][0] = zipcode_diffMins[i][0];
+			sum = 0;
+			count = 0;
+			sum += zipcode_diffMins[i][1];
+			count++;
+		}
+	}
+
+	zipcode_avgDiff[26][1] = sum / count;
+
+	var zipcodes = ['x'];
+	var avgDiff = ['Average Time (Min) for Dispatch Arrival'];
+	for (var i = 0; i < zipcode_avgDiff.length; i++) {
+		zipcodes.push(zipcode_avgDiff[i][0]);
+		avgDiff.push(zipcode_avgDiff[i][1]);
+	}
+
+	var chart = c3.generate({
+		bindto: '#chart3',
+	    data: {
+	        x : 'x',
+	        columns: [
+	            zipcodes,
+	            avgDiff
+	        ],
+	        type: 'bar'
+	    },
+	    axis: {
+	        x: {
+	            type: 'category' // this needed to load string x value
+	        }
+	    }
+	});
 }
 
 function sortFunction(a, b) {
