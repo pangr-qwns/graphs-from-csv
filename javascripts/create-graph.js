@@ -2,7 +2,7 @@
  * Parse the data and create a graph with the data.
  */
 function parseData(createGraphOne) {
-	Papa.parse("../../data/sfpd_dispatch_data_subset.csv", {
+	Papa.parse("/graphs-from-csv/data/sfpd_dispatch_data_subset.csv", {
 		download: true,
 		complete: function(results) {
 			createGraphOne(results.data);
