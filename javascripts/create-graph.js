@@ -302,7 +302,17 @@ function createGraphThree(data) {
 	    },
 	    axis: {
 	        x: {
-	            type: 'category' // this needed to load string x value
+	            type: 'category', // this needed to load string x value
+	            label: {
+	            	text: 'Zipcode',
+	            	position: 'outer-center'
+	            }
+	        },
+	        y: {
+	        	label: {
+	        		text: 'Time (Minutes)',
+	        		position: 'outer-middle'
+	        	}
 	        }
 	    },
 	    legend: {
