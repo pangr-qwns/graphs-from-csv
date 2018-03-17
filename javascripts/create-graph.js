@@ -311,6 +311,7 @@ function createGraphThree(data) {
 	        y: {
 	        	label: {
 	        		text: 'Time (Minutes)',
+	        		position: 'outer-middle'
 	        	}
 	        }
 	    },
