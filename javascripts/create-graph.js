@@ -200,6 +200,9 @@ function createGraphTwo(data) {
 	        		position: 'outer-middle'
 	        	}
 	        }
+	    },
+	    legend: {
+	    	show: false
 	    }
 	});
 }
@@ -301,6 +304,9 @@ function createGraphThree(data) {
 	        x: {
 	            type: 'category' // this needed to load string x value
 	        }
+	    },
+	    legend: {
+	    	show: false
 	    }
 	});
 }
