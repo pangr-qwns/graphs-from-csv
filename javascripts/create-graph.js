@@ -2,7 +2,8 @@
  * Parse the data and create a graph with the data.
  */
 function parseData(createGraphOne) {
-	Papa.parse("https://pangr-qwns.github.io" + window.location.pathname + "data/sfpd_dispatch_data_subset.csv", {
+	var pathFile = "https://pangr-qwns.github.io" + window.location.pathname + "data/sfpd_dispatch_data_subset.csv";
+	Papa.parse(pathFile, {
 		download: true,
 		complete: function(results) {
 			createGraphOne(results.data);
