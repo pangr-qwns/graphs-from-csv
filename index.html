@@ -63,6 +63,11 @@
     	</div>
       <p>Most zipcodes take 7 to 9 minutes for a dispatch to arrive from the moment someone makes a 911 call. Zipcode 94129 has a noticeably long average dispatch time, 13.34 minutes. 94129 is Presidio. This is understandable because Presidio has many trails and is a big park. Zipcode 94131 also has a noticeably long average dispatch time, 11.03 minutes. 94131 John McLaren Park but has a decent amount of residential houses.</p>
 
+      <div class="container">
+        <div id="formatted-address"</div>
+        <div id="address-components"</div>
+      </div>
+
 	  <script src="javascripts/create-graph.js"></script>
     <script>
       // Call Geocode
@@ -77,7 +82,31 @@
           }
         })
         .then(function(response){
+          // Log full response
           console.log(response);
+
+          // Formatted Address
+          var formattedAddress = response.data.results[0].formatted_address;
+          var formattedAddressOutput = `
+            <ul class = "list-group">
+              <li class="list-group-item">${formattedAddress}</li>
+            </ul>
+          `;
+
+          // Address Components
+          var addressComponents = response.data.results[0].addressComponents;
+          var addressComponentsOutput = '<ul class = "list-group">';
+          for (var i = 0; i < addressComponents.length; i++) {
+            addressComponentsOutput += `
+              <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
+            `;
+          }
+          addressComponentsOutput += '</ul';
+
+          // Output to app
+          document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+          document.getElementById('address-components').innerHTML = addressComponentsOutput;
+
         })
         .catch(function(error){
           console.log(error);
