@@ -94,7 +94,7 @@
           `;
 
           // Address Components
-          var addressComponents = response.data.results[0].addressComponents;
+          var addressComponents = response.data.results[0].address_components;
           var addressComponentsOutput = '<ul class = "list-group">';
           for (var i = 0; i < addressComponents.length; i++) {
             addressComponentsOutput += `
