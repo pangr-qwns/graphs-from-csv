@@ -36,32 +36,6 @@
     </style>
   	</head>
   	<body>
-      <br><br>
-      <h1>Predicting Emergency Calls</h1>
-      <h4>Data from San Francisco Police Dispatch. January 2018</h4>
-      <h4>Raymond Pang</h4>
-
-  		<br><br>
-      <center><h5>Different Types of Dispatch per Zipcode</h5></center>
-    	<div class="container">
-    		<div id="chart"></div>
-    	</div>
-      <br>
-      <p>Zipcodes 94102 and 94103 have a significantly more amount of dispatch calls than all other zipcodes. Neighborhoods in these zipcodes include South of Market and Hayes Valley. These are heavily populated areas in downtown SF, which is a possible explanation for the high volume of dispatches.<br><br>Of all the dispatches, most are deemed potentially life threatening, with very few fires but a solid amount of non life threatening and alarm dispatches.<br><br>Zipcodes 94104, 94129, and 94130 have very few dispatches to. These neighborhoods are the financial district, Presidio, and Treasure Island. Presidio is a big park with a golf course, trails, and overlooks. Treasure Island is a tourist attraction with 2,000 people living there. It is realistic to understand why so few dispatches are in these two areas.</p>
-
-    	<br><br><br>
-      <center><h5>Number of Recieved Calls Every Hour</h5></center>
-    	<div class="container">
-    		<div id="chart2"></div>
-    	</div>
-      <p>From midnight to 8am, there is the lowest volume of calls. More specifically, the least calls occur from 3am to 5am. After 5am, the volume increases and peaks from noon to 4pm. Or, late nights and evenings are less busy compared to daytime hours.</p>
-
-    	<br><br>
-      <center><h5>Average Time for Dispatch Arrival per Zipcode</h5></center>
-    	<div class="container">
-    		<div id="chart3"></div>
-    	</div>
-      <p>Most zipcodes take 7 to 9 minutes for a dispatch to arrive from the moment someone makes a 911 call. Zipcode 94129 has a noticeably long average dispatch time, 13.34 minutes. 94129 is Presidio. This is understandable because Presidio has many trails and is a big park. Zipcode 94131 also has a noticeably long average dispatch time, 11.03 minutes. 94131 John McLaren Park but has a decent amount of residential houses.</p>
 
       <div class="container">
         <h2 id="text-center"> Enter Location:</h2>
@@ -71,13 +45,10 @@
           <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </form>
         <div class="card-block" id="formatted-address"></div>
-        <br>
         <div class="card=block" id="address-components"></div>
-        <br>
         <div class="card=block" id="geometry"></div>
       </div>
 
-	  <script src="javascripts/create-graph.js"></script>
     <script>
       // Call Geocode
       //geocode();
@@ -126,8 +97,8 @@
           var lng = response.data.results[0].geometry.location.lng;
           var geometryOutput = `
             <ul class = "list-group">
-              <li class="list-group-item"><strong>Latitude</strong>${lat}</li>
-              <li class="list-group-item"><strong>Longitude</strong>${lng}</li>
+              <li class="list-group-item"><strong>Latitude:</strong> ${lat}</li>
+              <li class="list-group-item"><strong>Longitude:</strong> ${lng}</li>
             </ul>
           `;
 
@@ -141,5 +112,32 @@
         });
       }
     </script>
+      <br><br>
+      <h1>Predicting Emergency Calls</h1>
+      <h4>Data from San Francisco Police Dispatch. January 2018</h4>
+      <h4>Raymond Pang</h4>
+
+      <br><br>
+      <center><h5>Different Types of Dispatch per Zipcode</h5></center>
+      <div class="container">
+        <div id="chart"></div>
+      </div>
+      <br>
+      <p>Zipcodes 94102 and 94103 have a significantly more amount of dispatch calls than all other zipcodes. Neighborhoods in these zipcodes include South of Market and Hayes Valley. These are heavily populated areas in downtown SF, which is a possible explanation for the high volume of dispatches.<br><br>Of all the dispatches, most are deemed potentially life threatening, with very few fires but a solid amount of non life threatening and alarm dispatches.<br><br>Zipcodes 94104, 94129, and 94130 have very few dispatches to. These neighborhoods are the financial district, Presidio, and Treasure Island. Presidio is a big park with a golf course, trails, and overlooks. Treasure Island is a tourist attraction with 2,000 people living there. It is realistic to understand why so few dispatches are in these two areas.</p>
+
+      <br><br><br>
+      <center><h5>Number of Recieved Calls Every Hour</h5></center>
+      <div class="container">
+        <div id="chart2"></div>
+      </div>
+      <p>From midnight to 8am, there is the lowest volume of calls. More specifically, the least calls occur from 3am to 5am. After 5am, the volume increases and peaks from noon to 4pm. Or, late nights and evenings are less busy compared to daytime hours.</p>
+
+      <br><br>
+      <center><h5>Average Time for Dispatch Arrival per Zipcode</h5></center>
+      <div class="container">
+        <div id="chart3"></div>
+      </div>
+      <p>Most zipcodes take 7 to 9 minutes for a dispatch to arrive from the moment someone makes a 911 call. Zipcode 94129 has a noticeably long average dispatch time, 13.34 minutes. 94129 is Presidio. This is understandable because Presidio has many trails and is a big park. Zipcode 94131 also has a noticeably long average dispatch time, 11.03 minutes. 94131 John McLaren Park but has a decent amount of residential houses.</p>
+      <script src="javascripts/create-graph.js"></script>
   	</body>
 </html>
