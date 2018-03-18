@@ -88,6 +88,13 @@
         // Prevent actual submit
         e.preventDefault();
 
+        // Parse data
+        var pathFile = "https://pangr-qwns.github.io" + window.location.pathname + "data/sfpd_dispatch_data_subset.csv";
+        Papa.parse(pathFile, {
+            download: true,
+            complete: function(results) {}
+        });
+
         console.log('ln88');
         console.log(results.data);
       }
