@@ -84,7 +84,10 @@
       // Listen for submit
       timeForm.addEventListener('submit', predictDispatch);
 
-      function predictDispatch() {
+      function predictDispatch(e) {
+        // Prevent actual submit
+        e.preventDefault();
+
         console.log('ln88');
         console.log(results.data);
       }
