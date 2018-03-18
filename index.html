@@ -78,9 +78,18 @@
 	  <script src="javascripts/create-graph.js"></script>
     <script>
       // Call Geocode
-      geocode();
+      //geocode();
 
-      function geocode() {
+      // Get Location Form
+      var locationForm = document.getElementById('locatoin-form');
+
+      // Listen for submit
+      locationForm.addEventListener('submit', geocode);
+
+      function geocode(e) {
+        // Prevent actual submit
+        e.preventDefault();
+
         var location = '22 Main St Boston MA';
         axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params: {
