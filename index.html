@@ -114,7 +114,14 @@
           zipcode_hour_unitType.push(inner_arr);
         }
 
+        zipcode_hour_unitType.sort(sortFunction);
+
         console.log(zipcode_hour_unitType);
+
+        // make 2d array zipcode_hour_unitCount
+        // where first inner array is [94102, 0, count of most common unit type for 12am]
+        // and second inner array is [94102, 1, count of most common unit type for 1am]
+        // and so on
       }
 
       function geocode(e) {
