@@ -153,13 +153,13 @@
                 countEngine++;
               }
               else if (zipcode_hour_unitType[i][2] == 'MEDIC') {
-                  countMedic++;
+                countMedic++;
               }
               else if (zipcode_hour_unitType[i][2] == 'RESCUE SQUAD') {
                 countRescueSquad++;
               }
               else if (zipcode_hour_unitType[i][2] == 'RESCUE CAPTAIN') {
-                 countRescueCaptain++;
+                countRescueCaptain++;
               }
               else if (zipcode_hour_unitType[i][2] == 'PRIVATE') {
                 countPrivate++;
@@ -170,14 +170,13 @@
               ++i;
           }
           // assign max count to the corresponding zipcode and hour
-          arrCounts[0] = countMedic;
-          arrCounts[1] = countRescueSquad;
-          arrCounts[2] = countEngine;
-          arrCounts[3] = countPrivate;
-          arrCounts[4] = countChief;
-          arrCounts[5] = countRescueCaptain;
-          zipcode_hour_commonUnit[j][2] = Math.max(arrCounts);
-          countMedic = countRescueSquad = countEngine = countPrivate = countChief = countRescueCaptain = 0;
+          zipcode_hour_commonUnit[j][2] = Math.max(countMedic, countRescueSquad, countEngine, countPrivate, countChief, countRescueCaptain);
+          countMedic = 0;
+          countRescueSquad = 0;
+          countEngine = 0;
+          countPrivate = 0;
+          countChief = 0;
+          countRescueCaptain = 0;
           ++j;
           // find the startPos
           for (var y = zipcode_hour_unitType.length - 1; y > -1; --y) {
