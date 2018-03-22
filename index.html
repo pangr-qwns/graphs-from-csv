@@ -148,7 +148,8 @@
         console.log(zipcode_hour_commonUnit[624][0]);
         while (j < zipcode_hour_commonUnit.length) {
           while ((zipcode_hour_unitType[i][0] == zipcode_hour_commonUnit[j][0]) &&
-                 (zipcode_hour_unitType[i][1] == zipcode_hour_commonUnit[j][1])) {
+                 (zipcode_hour_unitType[i][1] == zipcode_hour_commonUnit[j][1]) &&
+                 (i < zipcode_hour_unitType.length)) {
               if (zipcode_hour_unitType[i][2] == 'ENGINE') {
                 countEngine++;
               }
