@@ -145,6 +145,9 @@ function createGraphOne(data) {
 	            label: {
 	            	text: 'Zipcode',
 	            	position: 'outer-center'
+	            },
+	            tick: {
+	            	multiline: false
 	            }
 	        },
 	        y: {
