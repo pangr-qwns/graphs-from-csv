@@ -16,9 +16,6 @@ python --version
 Python 3.6.3 :: Anaconda, Inc.
 ```
 
-```
-cd graphs-from-csv/
-python -m http.server
-```
+Visit https://pangr-qwns.github.io/graphs-from-csv/? to see the website.
 
-Visit http://localhost:8000 to see the website.
+Raymond Pang
