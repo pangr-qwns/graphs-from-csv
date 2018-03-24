@@ -116,7 +116,7 @@
 
         zipcode_hour_unitType.sort(sortFunction);
 
-        console.log(zipcode_hour_unitType);
+        zipcode_hour_unitType.push([-1, -1, -1]);
 
         // make 2d array zipcode_hour_commonUnit
         // where first inner array is [94102, 0, count of most common unit type for 12am]
@@ -134,7 +134,7 @@
           }
         }
 
-        console.log(zipcode_hour_commonUnit);
+        zipcode_hour_commonUnit.push([-2, -2, -2]);
 
         var countMedic, countRescueSquad, countEngine, countPrivate, countChief, countRescueCaptain;
         countMedic = countRescueSquad = countEngine = countPrivate = countChief = countRescueCaptain = 0;
@@ -144,28 +144,27 @@
         var i, j, startPos, endPos;
         i = j = 0;
 
-        console.log(zipcode_hour_unitType[9912][0]);
-        console.log(zipcode_hour_commonUnit[624][0]);
-        while ((j < zipcode_hour_commonUnit.length)  && (i < zipcode_hour_unitType.length)) {
-          while ((zipcode_hour_unitType[i][0] == zipcode_hour_commonUnit[j][0]) &&
-                 (zipcode_hour_unitType[i][1] == zipcode_hour_commonUnit[j][1])) {
-              if (zipcode_hour_unitType[i][2] == 'ENGINE') {
-                countEngine++;
-              }
-              else if (zipcode_hour_unitType[i][2] == 'MEDIC') {
-                countMedic++;
-              }
-              else if (zipcode_hour_unitType[i][2] == 'RESCUE SQUAD') {
-                countRescueSquad++;
-              }
-              else if (zipcode_hour_unitType[i][2] == 'RESCUE CAPTAIN') {
-                countRescueCaptain++;
-              }
-              else if (zipcode_hour_unitType[i][2] == 'PRIVATE') {
-                countPrivate++;
-              }
-              else if (zipcode_hour_unitType[i][2] == 'CHIEF') {
-                countChief++;
+        while ((j < zipcode_hour_commonUnit.length - 1)  && (i < zipcode_hour_unitType.length - 1)) {
+          while (zipcode_hour_unitType[i][0] == zipcode_hour_commonUnit[j][0]) {
+              if (zipcode_hour_unitType[i][1] == zipcode_hour_commonUnit[j][1]) {
+                if (zipcode_hour_unitType[i][2] == 'ENGINE') {
+                  countEngine++;
+                }
+                else if (zipcode_hour_unitType[i][2] == 'MEDIC') {
+                  countMedic++;
+                }
+                else if (zipcode_hour_unitType[i][2] == 'RESCUE SQUAD') {
+                  countRescueSquad++;
+                }
+                else if (zipcode_hour_unitType[i][2] == 'RESCUE CAPTAIN') {
+                  countRescueCaptain++;
+                }
+                else if (zipcode_hour_unitType[i][2] == 'PRIVATE') {
+                  countPrivate++;
+                }
+                else if (zipcode_hour_unitType[i][2] == 'CHIEF') {
+                  countChief++;
+                }
               }
               ++i;
           }
@@ -180,25 +179,11 @@
           ++j;
           // find the startPos
           for (var y = zipcode_hour_unitType.length - 1; y > -1; --y) {
-            if (j == 647) {
-              console.log('j: ' + j);
-              console.log('y: ' + y);
-              console.log(zipcode_hour_unitType);
-              console.log(zipcode_hour_commonUnit);
-              console.log(zipcode_hour_unitType[y][0]);
-              console.log(zipcode_hour_commonUnit[j][0]);
-            }
             if (zipcode_hour_unitType[y][0] == zipcode_hour_commonUnit[j][0]) {
               i = y;
             }
           }
-          console.log('i:' + i);
-          console.log('j:' + j);
-          console.log(zipcode_hour_commonUnit);
         }
-      console.log(zipcode_hour_commonUnit);
-
-
       }
 
       function geocode(e) {
