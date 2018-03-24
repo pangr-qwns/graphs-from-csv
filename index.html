@@ -116,8 +116,6 @@
           // Address Components
           var addressComponents = response.data.results[0].address_components;
           zipcode = addressComponents[7].long_name;
-          console.log(addressComponents);
-          console.log(zipcode);
         })
         .catch(function(error){
           console.log(error);
@@ -131,6 +129,8 @@
             commonUnit = zipcode_hour_commonUnit[i][2];
           }
         }
+        console.log(zipcode);
+        console.log(zipcode_hour_commonUnit);
 
         var commonUnitOutput = `
             <ul class = "list-group">
