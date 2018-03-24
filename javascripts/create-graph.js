@@ -96,7 +96,7 @@ function createGraphOne(data) {
 
 	var zipcodes = ['x'];
 	for (var i = 0; i < zipcode_numF_numA_numPLT_numNLT.length - 2; i++) {
-		zipcodes.push(zipcode_numF_numA_numPLT_numNLT[i][0]);
+		zipcodes.push(94100 - parseInt(zipcode_numF_numA_numPLT_numNLT[i][0]));
 	}
 
 	// create an array with just the counts of Fire, in order of zipcodes
@@ -143,7 +143,7 @@ function createGraphOne(data) {
 	        x: {
 	            type: 'category', // this needed to load string x value
 	            label: {
-	            	text: 'Zipcode',
+	            	text: 'Zipcode (94100's)',
 	            	position: 'outer-center'
 	            },
 	            tick: {
