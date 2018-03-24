@@ -115,22 +115,25 @@
         .then(function(response){
           // Address Components
           var addressComponents = response.data.results[0].address_components;
-          zipcode = addressComponents[7].long_name;
+          for (var i = 0; i < addressComponents.length; ++i) {
+            if (addressComponents[i].types[0] == 'postal_code') {
+              zipcode = addressComponents[i].long_name;
+            }
+          }
+          console.log(zipcode);
         })
         .catch(function(error){
           console.log(error);
         });
 
         var commonUnit = "";
-
+        console.log(zipcode);
         for (var i = 0; i < zipcode_hour_commonUnit.length; ++i) {
           if ((zipcode_hour_commonUnit[i][0] == zipcode) &&
               (zipcode_hour_commonUnit[i][1] == hour)) {
             commonUnit = zipcode_hour_commonUnit[i][2];
           }
         }
-        console.log(zipcode);
-        console.log(zipcode_hour_commonUnit);
 
         var commonUnitOutput = `
             <ul class = "list-group">
