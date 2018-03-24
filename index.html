@@ -116,7 +116,10 @@
           // Address Components
           var addressComponents = response.data.results[0].address_components;
           zipcode = addressComponents[7].long_name;
-        }
+        })
+        .catch(function(error){
+          console.log(error);
+        });
 
         var commonUnit = "";
 
