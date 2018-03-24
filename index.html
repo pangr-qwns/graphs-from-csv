@@ -121,11 +121,11 @@
             }
           }
           console.log('ln 123: ' + zipcode);
+          return zipcode;
         })
         .catch(function(error){
           console.log(error);
         });
-        return zipcode;
       }
 
       function printUnitType(zipcode_hour_commonUnit, zipcode, hour) {
