@@ -98,7 +98,7 @@
             download: true,
             complete: function(results) {
               var zipcode_hour_commonUnit = most_Common_Unit_per_Zipcode_per_Hour(results.data);
-              determineUnitType(zipcode_hour_commonUnit, parseInt(document.getElementById('time-input').value);
+              determineUnitType(zipcode_hour_commonUnit, parseInt(document.getElementById('time-input').value));
             }
         });
       }
