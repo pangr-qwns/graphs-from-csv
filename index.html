@@ -1,3 +1,4 @@
+<!--Cite: https://www.youtube.com/watch?v=1OK4TJfCzdY for Website Graphs from .csv Tutorial-->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -47,8 +48,6 @@
       <h4>Data from San Francisco Police Dispatch. January 2018</h4>
       <h4>Raymond Pang</h4>
       <br><br><br>
-
-      <h4>Enter a location in San Francisco. Because the dispatch data is only from one month, there are many zipcodes in San Francisco with no data. So, only entering a location with a present zipcode will work. See the first graph for the zipcodes included in the data set. After entering a location, the location's address components will be printed. Then, enter an hour and the most common type of dispatch that is sent to the location's zipcode based on the data will be printed.<br><br>Following that are some graphs of different trends from the data.</h4><br><br><br>
 
       <div class="container">
         <h6 id="text-center">Enter Location:</h6>
@@ -261,6 +260,7 @@
       }
 
       function geocode(e) {
+        // Cite: https://www.youtube.com/watch?v=pRiQeo17u6c for Geocoding Tutorial
         // Prevent actual submit
         e.preventDefault();
 
