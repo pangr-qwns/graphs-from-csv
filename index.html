@@ -180,6 +180,14 @@
           ++j;
           // find the startPos
           for (var y = zipcode_hour_unitType.length - 1; y > -1; --y) {
+            if (j == 647) {
+              console.log('j: ' + j);
+              console.log('y: ' + y);
+              console.log(zipcode_hour_unitType);
+              console.log(zipcode_hour_commonUnit);
+              console.log(zipcode_hour_unitType[y][0]);
+              console.log(zipcode_hour_commonUnit[j][0]);
+            }
             if (zipcode_hour_unitType[y][0] == zipcode_hour_commonUnit[j][0]) {
               i = y;
             }
