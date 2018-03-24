@@ -121,7 +121,6 @@
               zipcode = addressComponents[i].long_name;
             }
           }
-          console.log('ln 123: ' + zipcode);
           printUnitType(zipcode_hour_commonUnit, zipcode, hour);
         })
         .catch(function(error){
@@ -132,7 +131,6 @@
 
       function printUnitType(zipcode_hour_commonUnit, zipcode, hour) {
         var commonUnit = "";
-        console.log('ln 133' + zipcode);
         for (var i = 0; i < zipcode_hour_commonUnit.length; ++i) {
           if ((zipcode_hour_commonUnit[i][0] == zipcode) &&
               (zipcode_hour_commonUnit[i][1] == hour)) {
@@ -154,7 +152,6 @@
       function most_Common_Unit_per_Zipcode_per_Hour(data) {
         // returns an array of every hour for every zipcode and
         // the most common dispatch type
-        console.log(data);
 
         var zipcode_hour_unitType = [];
 
@@ -274,9 +271,6 @@
           }
         })
         .then(function(response){
-          // Log full response
-          console.log(response);
-
           // Formatted Address
           var formattedAddress = response.data.results[0].formatted_address;
           var formattedAddressOutput = `
