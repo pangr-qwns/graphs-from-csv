@@ -143,7 +143,7 @@ function createGraphOne(data) {
 	        x: {
 	            type: 'category', // this needed to load string x value
 	            label: {
-	            	text: 'Zipcode \(94100\'s\)',
+	            	text: 'Zipcode in 94100s',
 	            	position: 'outer-center'
 	            },
 	            tick: {
